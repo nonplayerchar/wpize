@@ -33,7 +33,6 @@ echo "Yy" | grep -q "$varinput" && echo "continuing..." || echo "exiting..."
 echo "Yy" | grep -q "$varinput" || exit 1
 
 
-var06=$(pwgen -s 16 1)   #mysql password
 
 sudo apt-get update
 sudo apt-get install software-properties-common -y
