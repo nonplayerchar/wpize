@@ -114,6 +114,7 @@ sudo chown -R www-data:www-data /etc/letsencrypt/
 
 
 # Nginx Setup
+sudo apt-get install nginx -y
 sudo mv nginx.conf nginx.conf.original
 sudo rm -r sites-enabled
 sudo rm -r sites-available
@@ -132,7 +133,7 @@ sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayercha
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-v1.1.conf' -O /etc/nginx/nginx/sites/domain.conf
 
 if $varyorn;
-  then sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-wildcard-v1.1.conf' -O /etc/nginx/sites/$var01-wildcard.conf && sudo sed -i "s/domain/$var011/g" /etc/nginx/sites/$var01-wildcard.conf;
+  then sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-wildcard-v1.1.conf' -O /etc/nginx/sites/$var01-wildcard.conf && sudo sed -i "s/domain/$var01/g" /etc/nginx/sites/$var01-wildcard.conf;
 fi
 
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/fastcgi-php.conf' -O /etc/nginx/fastcgi/fastcgi-php.conf
@@ -172,6 +173,7 @@ sudo systemctl restart php8.0-fpm
 
 
 # Saving db info to root dir
+sudo mkdir /root/db-info
 echo "your mysql password var06: $var06" >> /root/db-info/db.info
 sudo chattr +i /root/db-info/db.info
 
