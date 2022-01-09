@@ -34,6 +34,7 @@ echo "Yy" | grep -q "$varinput" || exit 1
 
 
 
+
 sudo apt-get update
 sudo apt-get install software-properties-common -y
 sudo apt-get install certbot -y
@@ -116,16 +117,16 @@ sudo chown -R www-data:www-data /etc/letsencrypt/
 
 # Nginx Setup
 sudo apt-get install nginx -y
-sudo mv nginx.conf nginx.conf.original
-sudo rm -r sites-enabled
-sudo rm -r sites-available
-sudo rm -r snippets
-sudo rm -r conf.d
-sudo rm fastcgi.conf
-sudo rm fastcgi_params
-sudo rm proxy_params
-sudo rm scgi_params
-sudo rm uwsgi_params 
+sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original
+sudo rm -r /etc/nginx/sites-enabled
+sudo rm -r /etc/nginx/sites-available
+sudo rm -r /etc/nginx/snippets
+sudo rm -r /etc/nginx/conf.d
+sudo rm /etc/nginx/fastcgi.conf
+sudo rm /etc/nginx/fastcgi_params
+sudo rm /etc/nginx/proxy_params
+sudo rm /etc/nginx/scgi_params
+sudo rm /etc/nginx/uwsgi_params 
 
 sudo mkdir /etc/nginx/sites
 sudo mkdir /etc/nginx/fastcgi
