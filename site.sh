@@ -7,14 +7,26 @@ read var01
 echo -n "Enter your email address for ssl certificate generation > "
 read var02
 
-
 echo -n "Enter your mysql-db master password > "
 read var06
+
+
 
 
 var03=$(gpw 1 8)         #database name
 var04=$(gpw 1 8)         #database username
 var05=$(pwgen -s 16 1)   #database password
+var06=`sudo cat /root/db-info/db.info` #mysql master password
+
+
+
+
+var011=`echo "$var01" | sudo sed "s/www.//g"`
+varwww=`echo "$var01" | grep -q "www." && echo "true" || echo "false"`
+varwpvanced=`echo "$var01" | grep -q ".wpvanced.com" && echo "true" || echo "false"`
+
+wp_home="define('WP_HOME', '$var01');"
+wp_siteurl="define('WP_SITEURL', '$var01');"
 
 
 
@@ -26,12 +38,14 @@ sudo mysql -uroot -p$var06 -e "FLUSH PRIVILEGES;"
 
 
 sudo cp -r /var/cms/wordpress /var/www/"$var01"
-sudo mv /var/www/"$var01"/wp-config-sample.php /var/www/"$var01"/wp-config.php
-sudo sed -i "s/database_name_here/$var03/g" /var/www/"$var01"/wp-config.php
-sudo sed -i "s/username_here/$var04/g" /var/www/"$var01"/wp-config.php
-sudo sed -i "s/password_here/$var05/g" /var/www/"$var01"/wp-config.php
-sudo sed -i "s/$table_prefix = 'wp_';/$table_prefix = '$var01';/g" /var/www/"$var01"/wp-config.php
-sudo sed -i "s/define( 'DB_HOST', 'localhost' );/define( 'DB_HOST', 'localhost' ); define( 'WP_REDIS_HOST', 'localhost' );/g" /var/www/"$var01"/wp-config.php
+#sudo mv /var/www/"$var01"/wp-config-sample.php /var/www/"$var01"/wp-config.php
+sudo wget 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/wp-config.php' -O /var/www/$var01/wp-config.php
+
+sudo sed -i "s/database_name_here/$var03/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/username_here/$var04/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/password_here/$var05/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/$table_prefix = 'wp_';/$table_prefix = '$var01';/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/define( 'DB_HOST', 'localhost' );/define( 'DB_HOST', 'localhost' ); define( 'WP_REDIS_HOST', 'localhost' );/g" /var/www/$var01/wp-config.php
 
 sudo perl -i -pe'
    BEGIN {
@@ -52,9 +66,7 @@ sudo perl -i -pe'
 #sudo chown -R www-data:www-data /etc/letsencrypt/live/$domain
 
 
-var011=`echo "$var01" | sudo sed "s/www.//g"`
-varwww=`echo "$var01" | grep -q "www." && echo "true" || echo "false"`
-varwpvanced=`echo "$var01" | grep -q ".wpvanced.com" && echo "true" || echo "false"`
+
 
 
 if $varwpvanced;
@@ -64,6 +76,16 @@ elif $varwww;
 else 
   sudo certbot certonly --non-interactive --webroot --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d "$var01" -w /var/www/$var01;
 fi
+
+
+
+
+
+
+
+
+sudo sed -i "s/#sed01/$wp_home/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/#sed02/$wp_siteurl/g" /var/www/$var01/wp-config.php
 
 
 

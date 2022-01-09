@@ -108,6 +108,7 @@ sudo sed -i "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=0/g" /etc/php/
 cd /etc/ssl
 sudo openssl dhparam -out dhparam.pem 2048
 cd
+mkdir /etc/ssl/trusted
 sudo wget 'https://letsencrypt.org/certs/isrgrootx1.pem'  -O /etc/ssl/trusted/chain.pem
 
 # Correct owners for ssl dirs
@@ -132,7 +133,7 @@ sudo mkdir /etc/nginx/sites
 sudo mkdir /etc/nginx/fastcgi
 
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/nginx-v1.1.conf' -O /etc/nginx/nginx.conf
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-v1.1.conf' -O /etc/nginx/nginx/sites/domain.conf
+sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-v1.1.conf' -O /etc/nginx/sites/domain.conf
 
 if $varyorn;
   then sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-wildcard-v1.1.conf' -O /etc/nginx/sites/$var01-wildcard.conf && sudo sed -i "s/domain/$var01/g" /etc/nginx/sites/$var01-wildcard.conf;
@@ -148,6 +149,7 @@ sudo chmod -R 0755 /var/www/
 
 # CMS
 mkdir /var/cms
+cd /var/cms/
 wget 'https://wordpress.org/latest.tar.gz' -O /var/cms/wordpress.tar.gz
 tar -zxf /var/cms/wordpress.tar.gz
 rm /var/cms/wordpress.tar.gz
