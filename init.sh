@@ -35,7 +35,7 @@ echo "Yy" | grep -q "$varinput" || exit 1
 
 var06=$(pwgen -s 16 1)   #mysql password
 
-
+sudo apt-get update
 sudo apt-get install software-properties-common -y
 sudo apt-get install certbot -y
 sudo apt-get install cron -y
@@ -44,6 +44,8 @@ sudo apt-get install mariadb-server -y
 sudo apt-get install redis-server -y
 sudo apt-get install pwgen -y
 sudo apt-get install gpw -y
+
+var06=$(pwgen -s 16 1)   #mysql password
 
 
 
