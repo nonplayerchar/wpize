@@ -77,7 +77,9 @@ fi
 
 
 
-
+sudo chown -R www-data:www-data /etc/letsencrypt/live
+sudo chown -R www-data:www-data /etc/letsencrypt/live/$var01
+sudo chown -R www-data:www-data /etc/letsencrypt/live/$var011
 
 
 
