@@ -28,7 +28,7 @@ if $varyorn;
   then echo -n "email for ssl generation" && read var02;
 fi
 if $varyorn;
-  then sudo apt-get install certbot -y && sudo certbot certonly --non-interactive --manual --preferred-challenges dns --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *."$var01";
+  then sudo apt-get install certbot -y && sudo certbot certonly --manual --preferred-challenges dns --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *."$var01";
 fi
 
 echo -n "Press 'y' to continue > "
