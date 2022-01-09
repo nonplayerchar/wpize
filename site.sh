@@ -18,14 +18,14 @@ var05=$(pwgen -s 16 1)   #database password
 
 
 
-sudo mysql -uroot -p$var06 "CREATE DATABASE $var03;"
-sudo mysql -uroot -p$var06 "CREATE USER '$var04'@'localhost' IDENTIFIED BY '$var05';"
-sudo mysql -uroot -p$var06 "GRANT ALL ON $var03.* TO '$var04'@'localhost' WITH GRANT OPTION;"
-sudo mysql -uroot -p$var06 "FLUSH PRIVILEGES;"
+sudo mysql -uroot -p$var06 -e "CREATE DATABASE $var03;"
+sudo mysql -uroot -p$var06 -e "CREATE USER '$var04'@'localhost' IDENTIFIED BY '$var05';"
+sudo mysql -uroot -p$var06 -e "GRANT ALL ON $var03.* TO '$var04'@'localhost' WITH GRANT OPTION;"
+sudo mysql -uroot -p$var06 -e "FLUSH PRIVILEGES;"
 
 
 
-sudo cp /var/cms/wordpress /var/www/"$var01"
+sudo cp -r /var/cms/wordpress /var/www/"$var01"
 sudo mv /var/www/"$var01"/wp-config-sample.php /var/www/"$var01"/wp-config.php
 sudo sed -i "s/database_name_here/$var03/g" /var/www/"$var01"/wp-config.php
 sudo sed -i "s/username_here/$var04/g" /var/www/"$var01"/wp-config.php
@@ -54,13 +54,10 @@ sudo perl -i -pe'
 
 var011=`echo "$var01" | sudo sed "s/www.//g"`
 varwww=`echo "$var01" | grep -q "www." && echo "true" || echo "false"`
-varwpize=`echo "$var01" | grep -q ".wpize.com" && echo "true" || echo "false"`
 varwpvanced=`echo "$var01" | grep -q ".wpvanced.com" && echo "true" || echo "false"`
 
 
-if $varwpize;
-  then return;
-elif $varwpvanced;
+if $varwpvanced;
   then return;
 elif $varwww;
   then sudo certbot certonly --non-interactive --webroot --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d "$var01" -w /var/www/$var01 && ln -s /etc/letsencrypt/live/$var011 /etc/letsencrypt/live/www.$var011;
@@ -74,7 +71,7 @@ fi
 
 
 
-
+sudo mkdir /root/sites-db-info
 echo "wp prefix table is $var01" >> /root/sites-db-info/$var01-db.info
 echo "your database name var03: $var03" >> /root/sites-db-info/$var01-db.info
 echo "your database username var04: $var04" >> /root/sites-db-info/$var01-db.info
