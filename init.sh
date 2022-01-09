@@ -110,6 +110,7 @@ sudo sed -i "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=0/g" /etc/php/
 cd /etc/ssl
 sudo openssl dhparam -out dhparam.pem 2048
 cd
+sudo wget 'https://letsencrypt.org/certs/isrgrootx1.pem'  -O /etc/ssl/trusted/chain.pem
 
 # Correct owners for ssl dirs
 sudo chown -R www-data:www-data /etc/ssl/
