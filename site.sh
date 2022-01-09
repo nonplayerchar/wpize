@@ -20,8 +20,8 @@ var06=`sudo cat /root/db-info/db.info` #mysql master password
 
 
 
-var11=`echo "$var01" | sudo sed "s/./_/g"`
-var011=`echo "$var01" | sudo sed "s/www.//g"`
+var11=`echo "$var01" | sudo sed "s/\./_/g"`
+var011=`echo "$var01" | sudo sed "s/www\.//g"`
 varwww=`echo "$var01" | grep -q "www." && echo "true" || echo "false"`
 varwpvanced=`echo "$var01" | grep -q ".wpvanced.com" && echo "true" || echo "false"`
 
