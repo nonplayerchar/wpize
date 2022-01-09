@@ -20,13 +20,11 @@ var06=`sudo cat /root/db-info/db.info` #mysql master password
 
 
 
-
+var11=`echo "$var01" | sudo sed "s/./_/g"`
 var011=`echo "$var01" | sudo sed "s/www.//g"`
 varwww=`echo "$var01" | grep -q "www." && echo "true" || echo "false"`
 varwpvanced=`echo "$var01" | grep -q ".wpvanced.com" && echo "true" || echo "false"`
 
-wp_home="define('WP_HOME', '$var01');"
-wp_siteurl="define('WP_SITEURL', '$var01');"
 
 
 
@@ -44,7 +42,7 @@ sudo wget 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/wp-config.
 sudo sed -i "s/database_name_here/$var03/g" /var/www/$var01/wp-config.php
 sudo sed -i "s/username_here/$var04/g" /var/www/$var01/wp-config.php
 sudo sed -i "s/password_here/$var05/g" /var/www/$var01/wp-config.php
-sudo sed -i "s/$table_prefix = 'wp_';/$table_prefix = '$var01';/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/$table_prefix = 'wp_';/$table_prefix = '$var11';/g" /var/www/$var01/wp-config.php
 sudo sed -i "s/define( 'DB_HOST', 'localhost' );/define( 'DB_HOST', 'localhost' ); define( 'WP_REDIS_HOST', 'localhost' );/g" /var/www/$var01/wp-config.php
 
 sudo perl -i -pe'
@@ -84,8 +82,8 @@ fi
 
 
 
-sudo sed -i "s/#sed01/$wp_home/g" /var/www/$var01/wp-config.php
-sudo sed -i "s/#sed02/$wp_siteurl/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/#sed01/define('WP_HOME', 'https:\/\/$var01');/g" /var/www/$var01/wp-config.php
+sudo sed -i "s/#sed02/define('WP_SITEURL', 'https:\/\/$var01');/g" /var/www/$var01/wp-config.php
 
 
 
@@ -94,7 +92,7 @@ sudo sed -i "s/#sed02/$wp_siteurl/g" /var/www/$var01/wp-config.php
 
 
 sudo mkdir /root/sites-db-info
-echo "wp prefix table is $var01" >> /root/sites-db-info/$var01-db.info
+echo "wp prefix table is $var11" >> /root/sites-db-info/$var01-db.info
 echo "your database name var03: $var03" >> /root/sites-db-info/$var01-db.info
 echo "your database username var04: $var04" >> /root/sites-db-info/$var01-db.info
 echo "your database password var05: $var05" >> /root/sites-db-info/$var01-db.info
