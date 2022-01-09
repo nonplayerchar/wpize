@@ -70,7 +70,7 @@ sudo perl -i -pe'
 if $varwpvanced;
   then return;
 elif $varwww;
-  then sudo certbot certonly --non-interactive --webroot --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d "$var01" -w /var/www/$var01 && ln -s /etc/letsencrypt/live/$var011 /etc/letsencrypt/live/www.$var011;
+  then sudo certbot certonly --non-interactive --webroot --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d "$var01" -w /var/www/$var01 && ln -s /etc/letsencrypt/live/$var011 /etc/letsencrypt/live/www.$var01;
 else 
   sudo certbot certonly --non-interactive --webroot --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d "$var01" -w /var/www/$var01;
 fi
@@ -91,7 +91,7 @@ sudo sed -i "s/#sed02/define('WP_SITEURL', 'https:\/\/$var01');/g" /var/www/$var
 
 
 
-sudo mkdir /root/sites-db-info
+sudo mkdir -p /root/sites-db-info
 echo "wp prefix table is $var11" >> /root/sites-db-info/$var01-db.info
 echo "your database name var03: $var03" >> /root/sites-db-info/$var01-db.info
 echo "your database username var04: $var04" >> /root/sites-db-info/$var01-db.info
