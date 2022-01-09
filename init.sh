@@ -17,19 +17,15 @@ read opcachememory
 echo -n "Enter timezone for PHP (Syntax - PHP.NET timezones with excape character e.g America\/Chicago) > "
 read timezone
 
-echo -n "want to configure a wildcard domain y or n"
+echo -n "Have you Configured Wildcard SSL? (y / n) > "
 read yorn
 
 varyorn=`echo "$yorn" | grep -q "y" && echo "true" || echo "false"`
+
 if $varyorn;
-  then echo -n "wildcard domain" && read var01;
+  then echo -n "Enter Wildcard Domain > " && read var01;
 fi
-if $varyorn;
-  then echo -n "email for ssl generation" && read var02;
-fi
-if $varyorn;
-  then sudo apt-get install certbot -y && sudo certbot certonly --manual --preferred-challenges dns --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *."$var01";
-fi
+
 
 echo -n "Press 'y' to continue > "
 read varinput
@@ -136,7 +132,7 @@ sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayercha
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-v1.1.conf' -O /etc/nginx/nginx/sites/domain.conf
 
 if $varyorn;
-  then sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-wildcard-v1.1.conf' -O /etc/nginx/sites/$var01-wildcard.conf;
+  then sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/domain-wildcard-v1.1.conf' -O /etc/nginx/sites/$var01-wildcard.conf && sudo sed -i "s/domain/$var011/g" /etc/nginx/sites/$var01-wildcard.conf;
 fi
 
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/nonplayerchar/wpize/main/fastcgi-php.conf' -O /etc/nginx/fastcgi/fastcgi-php.conf
