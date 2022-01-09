@@ -22,13 +22,13 @@ read yorn
 
 varyorn=`echo "$yorn" | grep -q "y" && echo "true" || echo "false"`
 if $varyorn;
-  then echo -n "wildcard domain" && read $var01;
+  then echo -n "wildcard domain" && read var01;
 fi
 if $varyorn;
-  then echo -n "email for ssl generation" && read $var02;
+  then echo -n "email for ssl generation" && read var02;
 fi
 if $varyorn;
-  then sudo certbot certonly --non-interactive --manual --preferred-challenges dns --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *."$var01";
+  then sudo apt-get install certbot -y && sudo certbot certonly --non-interactive --manual --preferred-challenges dns --email "$var02" --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *."$var01";
 fi
 
 echo -n "Press 'y' to continue > "
