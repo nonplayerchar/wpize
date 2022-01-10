@@ -7,8 +7,8 @@ read var01
 echo -n "Enter your email address for ssl certificate generation > "
 read var02
 
-echo -n "Enter your mysql-db master password > "
-read var06
+#echo -n "Enter your mysql-db master password > "
+#read var06
 
 
 
