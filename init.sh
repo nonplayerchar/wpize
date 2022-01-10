@@ -178,7 +178,7 @@ sudo systemctl restart php8.0-fpm
 
 # Saving db info to root dir
 sudo mkdir /root/db-info
-echo "your mysql password var06: $var06" >> /root/db-info/db.info
+echo "$var06" >> /root/db-info/db.info
 sudo chattr +i /root/db-info/db.info
 
 
