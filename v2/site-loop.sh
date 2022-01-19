@@ -76,9 +76,11 @@ sudo perl -i -pe'
 
 
 cd /var/www/$var01 
-wp core install --url=$var01 --title=Wpize-Site --admin_user=$var13 --admin_email=$var14 --admin_password=$var15 --allow-root
-cd
 
+# --path=`path/to/wordpress` or run `wp core download`
+wp core install --url=$var01 --title=Wpize-Site --admin_user=$var13 --admin_email=$var14 --admin_password=$var15 --skip-email --allow-root
+cd
+echo "$var01 done!"
 
 
 sudo sed -i "s/#sed01/define('WP_HOME', 'https:\/\/$var01');/g" /var/www/$var01/wp-config.php
